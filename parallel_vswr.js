@@ -12,6 +12,7 @@ document.addEventListener("readystatechange", () => {
     const explanationArea= document.getElementById("explanation");
     explanationArea.value = `Current readyState: ${document.readyState}\n`;
     explanationArea.value += `time: ${timenow()}\n`;
+    document.startViewTransition(() => { updateDOMToNewState(); });
   
     const myForm = document.getElementById("vswrForm");
     window.addEventListener('keydown',function(event) {
