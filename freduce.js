@@ -26,3 +26,13 @@ class Creduce {
   static printAcc= ()=> { console.log("acc=", this.groupByAge); }
 }
 export { Creduce };
+// static getByAge(people) {
+//     let groupByAge= people.reduce((acc, person) => {
+//     const age = person.age;
+//     if (!acc[age]) { acc[age] = []; }
+//     acc[age].push(person);
+//     return acc;
+//   },{
+//     // previous value of accumulator
+//   });
+//   }

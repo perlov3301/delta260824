@@ -147,6 +147,7 @@ function insertInOrder(arr, newItem, vswr) {
   }// end of while
   // insert the item at the found index
   // splice(start, number of elements to remove, items to inject)
+  
   arr.splice(low, 0, newItem);
   // option of delete one item =last item if length>10
   // length_arr= arr.length;
@@ -161,7 +162,6 @@ const sourceArray = [
   { id: 2, score: 12 },
   { id: 3, score: 78 }
 ];
-
 const targetArray = [];
 
 // Find the object with the minimum numeric property (e.g., 'score')

@@ -87,85 +87,36 @@ document.addEventListener("readystatechange", () => {
       );
     });
 
-    const result_vswr=  document.getElementById("result_vswr");
-    result_vswr.textContent=`result_vswr  \n`;
-    const result_vswr1= document.getElementById("result_vswr1");
-    result_vswr1.textContent=`result_vswr1 \n`;
-    const result_vswr2= document.getElementById("result_vswr2");
-    result_vswr2.textContent=`result_vswr2 \n`;
-    const result_vswr3= document.getElementById("result_vswr3");
-    result_vswr3.textContent=`result_vswr3\n`;
-
+    const result_vswr= document.getElementById("result_vswr");
     // Creduce.printAcc();
     const people= [
-        {name: "John", vswr: 3.,  line: { impedance: 40,    length: 80}},
-        {name: "Jane", vswr: 2.5, line: { impedance: 45,    length: 70}},
-        {name: "Jim",  vswr: 3.5, line: { impedance: 100,   length: 60}},
-        {name: "Jill", vswr: 2.8, line: { impedance: 35,    length: 90}},
+        {name: "John", age: 30, features: {job: "New York", hobby: "Hiking"}},
+        {name: "Jane", age: 25, features: {job: "Los Angeles", hobby: "Reading"}},
+        {name: "Jim", age: 35, features: {job: "Chicago", hobby: "Swimming"}},
+        {name: "Jill", age: 28, features: { job: "Houston", hobby: "Cooking"}},
     ];
     // Creduce.people= people;
     // const groupByAge= Creduce.getByAge(people);
     // const groupByAge= Creduce.people.reduce((acc, person) => {
-    // const groupByAge= people.reduce((acc, person) => {
-    //   const vswr= person.vswr;
-    //   if (!acc[vswr]) { acc[vswr] = []; }
-    //   acc[vswr].push(person);
-    //   return acc;
-    // },{});
-    // console.log("groupByAge=", groupByAge);
-    // let result_json= JSON.stringify(groupByAge);
-    // // result_vswr.textContent= result_json;
-    // let result_values= Object.values(groupByAge)[0][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2); 
-    // result_values= Object.values(groupByAge)[1][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2);
-    // result_values= Object.values(groupByAge)[2][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2); 
-    // result_values= Object.values(groupByAge)[3][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2);     
-    // // .map(group => group.map(person => person.name).join(", ")).join("\n");
-
-    // const minVSWR= people.reduce((min, current)=> {
-    //   return current.vswr< min.vswr ? current : min;
-    // }, people[0]);
-    // result_values= Object.values(minVSWR)[0][0];
-    // // result_vswr1.textContent += JSON.stringify(result_values, null, 2);
-    // result_vswr1.textContent+= JSON.stringify(minVSWR, null, 2);
-
-    
-    let targetArray = []; 
-// Find the object with the minimum numeric property (e.g., 'score')
-    const minObject = people.reduce((min, obj) => 
-      obj.vswr< min.vswr ? obj : min
-);   
-// Push that object into the target array
-    targetArray.push(minObject);
-    result_vswr2.textContent+= JSON.stringify(targetArray[0], null, 2);
-
-    const array_length= people.length ;
-    targetArray.length= 0; // Clear the target array
-    function insertItem(arr, newItem, vswr) {
-      let low = 0;
-      let high = arr.length;
-      let mid = 0;
-      while (low<high) {
-        mid = Math.floor((low+high)/2);
-        if (arr[mid][vswr]< newItem[vswr]) {
-          low= mid+1;
-        } else {
-          high=mid;
-        }
-      }// while
-      arr.splice(low, 0, newItem);
-      return arr;
-    }
-    targetArray.push(people[0]);
-    for (let i=1; i<array_length; i++) {
-      insertItem(targetArray, people[i], "vswr");
-    }
-    result_vswr3.textContent+= JSON.stringify(targetArray, null, 2);
+    const groupByAge= people.reduce((acc, person) => {
+      const age= person.age;
+      if (!acc[age]) { acc[age] = []; }
+      acc[age].push(person);
+      return acc;
+    },{});
+    console.log("groupByAge=", groupByAge);
+    let result_json= JSON.stringify(groupByAge);
+    // result_vswr.textContent= result_json;
+    let result_values= Object.values(groupByAge)[0][0];
+    result_vswr.textContent+= JSON.stringify(result_values, null, 2); 
+    result_values= Object.values(groupByAge)[1][0];
+    result_vswr.textContent+= JSON.stringify(result_values, null, 2);
+    result_values= Object.values(groupByAge)[2][0];
+    result_vswr.textContent+= JSON.stringify(result_values, null, 2);     
+    // .map(group => group.map(person => person.name).join(", ")).join("\n");
 
     const statusIndicator= document.getElementById("statusIndicator");
+
     statusIndicator.replaceChildren("ready");
     let currentState= "ready";
     
@@ -185,7 +136,6 @@ document.addEventListener("readystatechange", () => {
       
       let k=3;
       explanationArea.value= `k= ${k}\n`;
-      let result_array_all=[];
      
       for (let k=0; k<3; k++) {
 
@@ -247,7 +197,10 @@ document.addEventListener("readystatechange", () => {
               Zin_r_array[i]= format1.fzin_r(vswrData.Zin_parallel.real);
               Zin_x_array[i]= format1.fzin_x(vswrData.Zin_parallel.imag);
               
-             
+              const spaces = " ".repeat(3);
+              result_vswr.textContent+= 
+              `f= ${frequency}MHz${spaces}vswr: ${vswr_array[i]}${spaces}`+ 
+                ` db= ${db_array[i]}dB${spaces}(|Γ| = ${g_array[i]})\n`;
               console.log("updateResult; vswr:", vswr_array[i]," |Γ|:",g_array[i]," db:", db_array[i]);
             
             } //end of for loop over f_n
@@ -260,7 +213,6 @@ document.addEventListener("readystatechange", () => {
             z02_k[k]= Z02_array;
             l01_k[k]= length1_array;
             l02_k[k]= length2_array;
-            result_array_all.push({vswr: vswr_max, z01: Z01_array, z02: Z02_array, l01: length1_array, l02: length2_array});
 
         } //end of try
         catch (error) {
@@ -268,15 +220,6 @@ document.addEventListener("readystatechange", () => {
           explanationArea.value += error.message;
         }// end of catch
       } //end of k
-       const spaces = " ".repeat(3);
-              result_vswr.textContent+= `vswr=${result_array_all[0].vswr}${spaces}Z01=${result_array_all[0].z01.join(',')}/n`;
-              result_vswr.textContent+=`Z02=${result_array_all[0].z02.join(',')}${spaces}`;
-              result_vswr.textContent+=`L01=${result_array_all[0].l01.join(',')}${spaces}L02=${result_array_all[0].l02.join(',')}\n`;
-              // result_array_all[0];
-            //  result_vswr.textContent= JSON.stringify(result_array_all, null, 2); 
-
-              // `f= ${frequency}MHz${spaces}vswr: ${vswr_array[i]}${spaces}`+ 
-              //   ` db= ${db_array[i]}dB${spaces}(|Γ| = ${g_array[i]})\n`;
 
     } //end of updateResult
     
