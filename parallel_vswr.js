@@ -96,54 +96,27 @@ document.addEventListener("readystatechange", () => {
     const result_vswr3= document.getElementById("result_vswr3");
     result_vswr3.textContent=`result_vswr3\n`;
 
-    // Creduce.printAcc();
     const people= [
         {name: "John", vswr: 3.,  line: { impedance: 40,    length: 80}},
         {name: "Jane", vswr: 2.5, line: { impedance: 45,    length: 70}},
         {name: "Jim",  vswr: 3.5, line: { impedance: 100,   length: 60}},
         {name: "Jill", vswr: 2.8, line: { impedance: 35,    length: 90}},
     ];
-    // Creduce.people= people;
-    // const groupByAge= Creduce.getByAge(people);
-    // const groupByAge= Creduce.people.reduce((acc, person) => {
-    // const groupByAge= people.reduce((acc, person) => {
-    //   const vswr= person.vswr;
-    //   if (!acc[vswr]) { acc[vswr] = []; }
-    //   acc[vswr].push(person);
-    //   return acc;
-    // },{});
-    // console.log("groupByAge=", groupByAge);
-    // let result_json= JSON.stringify(groupByAge);
-    // // result_vswr.textContent= result_json;
-    // let result_values= Object.values(groupByAge)[0][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2); 
-    // result_values= Object.values(groupByAge)[1][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2);
-    // result_values= Object.values(groupByAge)[2][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2); 
-    // result_values= Object.values(groupByAge)[3][0];
-    // result_vswr.textContent+= JSON.stringify(result_values, null, 2);     
-    // // .map(group => group.map(person => person.name).join(", ")).join("\n");
-
-    // const minVSWR= people.reduce((min, current)=> {
-    //   return current.vswr< min.vswr ? current : min;
-    // }, people[0]);
-    // result_values= Object.values(minVSWR)[0][0];
-    // // result_vswr1.textContent += JSON.stringify(result_values, null, 2);
-    // result_vswr1.textContent+= JSON.stringify(minVSWR, null, 2);
-
+    
     
     let targetArray = []; 
-// Find the object with the minimum numeric property (e.g., 'score')
+// Find the object with the minimum numeric property (e.g., 'vswr)
     const minObject = people.reduce((min, obj) => 
       obj.vswr< min.vswr ? obj : min
 );   
-// Push that object into the target array
+// Push object with min 'vswr' into the target array
     targetArray.push(minObject);
     result_vswr2.textContent+= JSON.stringify(targetArray[0], null, 2);
 
+// insert new object in order for value of 'vswr'
     const array_length= people.length ;
     targetArray.length= 0; // Clear the target array
+    
     function insertItem(arr, newItem, vswr) {
       let low = 0;
       let high = arr.length;
@@ -165,9 +138,10 @@ document.addEventListener("readystatechange", () => {
     }
     result_vswr3.textContent+= JSON.stringify(targetArray, null, 2);
 
-    const statusIndicator= document.getElementById("statusIndicator");
-    statusIndicator.replaceChildren("ready");
-    let currentState= "ready";
+    
+    // const statusIndicator= document.getElementById("statusIndicator");
+    // statusIndicator.replaceChildren("ready");
+    // let currentState= "ready";
     
     function formatNumber(value) {
       return Number.isFinite(value) ? 
@@ -186,6 +160,7 @@ document.addEventListener("readystatechange", () => {
       let k=3;
       explanationArea.value= `k= ${k}\n`;
       let result_array_all=[];
+      let targetArr = [];
      
       for (let k=0; k<3; k++) {
 
@@ -267,7 +242,41 @@ document.addEventListener("readystatechange", () => {
           result_vswr.textContent = "parallel_vswr;Error of calculations .";
           explanationArea.value += error.message;
         }// end of catch
+        const arr_length=0;
+        if (k==0) {
+          targetArr.push(result_array_all[0]);
+        }
+        else { 
+          // arr_length= result_array_all.length ; 
+          insertItem(targetArr, result_array_all[k], "vswr");
+        }
+        /**
+         const array_length= people.length ;
+    targetArray.length= 0; // Clear the target array
+    
+    function insertItem(arr, newItem, vswr) {
+      let low = 0;
+      let high = arr.length;
+      let mid = 0;
+      while (low<high) {
+        mid = Math.floor((low+high)/2);
+        if (arr[mid][vswr]< newItem[vswr]) {
+          low= mid+1;
+        } else {
+          high=mid;
+        }
+      }// while
+      arr.splice(low, 0, newItem);
+      return arr;
+    }
+    targetArray.push(people[0]);
+    for (let i=1; i<array_length; i++) {
+      insertItem(targetArray, people[i], "vswr");
+    }
+    result_vswr3.textContent+= JSON.stringify(targetArray, null, 2);
+         */
       } //end of k
+      result_vswr3.textContent+= JSON.stringify(targetArray, null, 2);
        const spaces = " ".repeat(3);
               result_vswr.textContent+= `vswr=${result_array_all[0].vswr}${spaces}Z01=${result_array_all[0].z01.join(',')}/n`;
               result_vswr.textContent+=`Z02=${result_array_all[0].z02.join(',')}${spaces}`;
