@@ -33,14 +33,7 @@ document.addEventListener("readystatechange", () => {
     // let db_array= [];
     // let g_array= [];
     
-    const result_vswr=  document.getElementById("result_vswr");
-    result_vswr.textContent=`result for best solution from within k searches \n`;
-    const result_vswr1= document.getElementById("result_vswr1");
-    result_vswr1.textContent=`result_vswr1: people VSWR  from min to max\n`;
-    const result_vswr2= document.getElementById("result_vswr2");
-    result_vswr2.textContent=`result_vswr2 \n`;
-    const result_vswr3= document.getElementById("result_vswr3");
-    result_vswr3.textContent=`result_vswr3\n`;
+    
     const form= document.getElementById("vswrForm");
     const generatorR= document.getElementById("generatorR");
     
@@ -94,14 +87,14 @@ document.addEventListener("readystatechange", () => {
       );
     });
 
-    // const result_vswr=  document.getElementById("result_vswr");
-    // result_vswr.textContent=`result for best solution from within k searches \n`;
-    // const result_vswr1= document.getElementById("result_vswr1");
-    // result_vswr1.textContent=`result_vswr1: people VSWR  from min to max\n`;
-    // const result_vswr2= document.getElementById("result_vswr2");
-    // result_vswr2.textContent=`result_vswr2 \n`;
-    // const result_vswr3= document.getElementById("result_vswr3");
-    // result_vswr3.textContent=`result_vswr3\n`;
+    const result_vswr=  document.getElementById("result_vswr");
+    result_vswr.textContent=`result for min VSWR within k-searches \n`;
+    const result_vswr1= document.getElementById("result_vswr1");
+    result_vswr1.textContent=`result_vswr1: people VSWR  from min to max\n`;
+    const result_vswr2= document.getElementById("result_vswr2");
+    result_vswr2.textContent=`result_vswr2 \n`;
+    const result_vswr3= document.getElementById("result_vswr3");
+    result_vswr3.textContent=`result_vswr3\n`;
 
     const people= [
         {vswr: 3.,  line1: { impedance: 40, length: 80}, line2: {impedance:48, length: 70}},
@@ -153,9 +146,6 @@ document.addEventListener("readystatechange", () => {
       return Number.isFinite(value) ? 
           +value.toFixed(2): "NaN";
     }
-    let targets0= [];
-    const k0= 17;
-    result_vswr.textContent= `collection for best solutions from  within each  ${k0}-times search \n`;
     
     function updateResult() 
     {
@@ -168,6 +158,7 @@ document.addEventListener("readystatechange", () => {
       const { id_rmin, id_rmax, id_lmin, id_lmax}= Ids.ids_stp_n(stp_n);
       
       let k=30;
+      const k0= 3;
       explanationArea.value= `k= ${k0}\n`;
       let all=[];
       let targetArr = [];
@@ -194,9 +185,9 @@ document.addEventListener("readystatechange", () => {
           length2_array[j]= length2;
           // let lines= `R[1,${j+1}]=${format1.fzin_r(Z01)} Ω,L[1,${j+1}]=${format1.f_l(length1)} mm,`;
           // lines+=` R[2,${j+1}]=${format1.fzin_r(Z02)} Ω, L[2,${j+1}]=${format1.f_l(length2)} mm`;
-          // let lines= `R[1,${j+1}]=${format1.fzin_r(Z01)} Ω, L[1,${j+1}]=${length1.toFixed(2)} mm,`;
-          // lines+=   ` R[2,${j+1}]=${format1.fzin_r(Z02)} Ω, L[2,${j+1}]=${length2.toFixed(2)} mm`;
-          // explanationArea.value+= `${lines}\n`; 
+          let lines= `R[1,${j+1}]=${format1.fzin_r(Z01)} Ω, L[1,${j+1}]=${length1.toFixed(2)} mm,`;
+          lines+=   ` R[2,${j+1}]=${format1.fzin_r(Z02)} Ω, L[2,${j+1}]=${length2.toFixed(2)} mm`;
+          explanationArea.value+= `${lines}\n`; 
         } // end of for j
         try 
         {
@@ -236,7 +227,7 @@ document.addEventListener("readystatechange", () => {
             
             } //end of for loop over f_n
             const vswr_max= Math.max(...vswr_array);
-            // explanationArea.value+= ` VSWR= ${vswr_max} is maximum for ${f_n} frequencies\n`;   
+            explanationArea.value+= ` VSWR= ${vswr_max} is maximum for ${f_n} frequencies\n`;   
             //  `f= ${frequency}MHz${spaces}Zin_r=${Zin_r_array[i]}` +
             //     `${spaces}Zin_x=${Zin_x_array[i]} Ω\n`;
             vswr_k[k]=vswr_max;
@@ -279,17 +270,12 @@ document.addEventListener("readystatechange", () => {
       k=0;
       targetArr.forEach((array_all, k) => {
         const vswr_p= document.createElement("p");
-        explanationArea.value+= `---vswr=${array_all.vswr}---\n`;
-        // let lines= `R[1,${j+1}]=${format1.fzin_r(Z01)} Ω, L[1,${j+1}]=${length1.toFixed(2)} mm,`;
-        //   lines+=   ` R[2,${j+1}]=${format1.fzin_r(Z02)} Ω, L[2,${j+1}]=${length2.toFixed(2)} mm`;
-        //   explanationArea.value+= `${lines}\n`; 
         vswr_p.textContent= `---vswr=${array_all.vswr}---`;
         vswr_p.style.lineHeight=".1rem";
         result_vswr3.appendChild(vswr_p);
         array_all.z01.forEach((num,n)=> {
           let text_p= `Z01[${n}]= ${array_all.z01[n].toFixed(1)} L01[${n}]= ${array_all.l01[n].toFixed(1)} `;
             text_p+= ` ZO2[${n}]= ${array_all.z02[n].toFixed(1)} L02[${n}]= ${array_all.l02[n].toFixed(1)}`;
-          explanationArea.value+= `${text_p}\n`; 
           const line_p= document.createElement("p");
           line_p.textContent= text_p;
           line_p.style.lineHeight= ".01"; // Adjust the line height as needed
@@ -298,13 +284,12 @@ document.addEventListener("readystatechange", () => {
       });
      
       const spaces = " ".repeat(3);
-      result_vswr.textContent+= `\n`;
+      result_vswr.textContent+= "";
       const vswr_p=document.createElement("p");
       vswr_p.textContent= `vswr=${targetArr[0].vswr}\n`;
       vswr_p.style.lineHeight=".1rem";
       result_vswr.appendChild(vswr_p);
       // result_vswr.textContent+= `vswr=${all[0].vswr}\n`;
-      targets0.push(targetArr[0]);
       targetArr[0].z01.forEach((num,n)=> {
         let text_p= `Z01[${n}]= ${num.toFixed(1)} L01[${n}]= ${targetArr[0].l01[n].toFixed(1)} `;
         text_p+= ` ZO2[${n}]= ${targetArr[0].z02[n].toFixed(1)} L02[${n}]= ${targetArr[0].l02[n].toFixed(1)}`;
