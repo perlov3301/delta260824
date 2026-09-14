@@ -122,7 +122,7 @@ document.addEventListener("readystatechange", () => {
       const { id_rmin, id_rmax, id_lmin, id_lmax}= Ids.ids_stp_n(stp_n);
       
       let k=30;
-      explanationArea.value= `${k0} sets of lines \n`;
+      explanationArea.value= `top 9 sets of lines from ${k0} sets of lines after last calculation \n`;
       let all=[];
       let targetArr = [];
       
@@ -222,21 +222,22 @@ document.addEventListener("readystatechange", () => {
          
       } //end of k
       /**
-          object1.vswr=vswr_max;
-          object1.z01= Z01_array; 
-          object1.z02= Z02_array;
-          object1.l01=length1_array;
-          object1.l02=length2_array;
-          all.push(object1);
+         const items = ['a', 'b', 'c', 'd', 'e'];
+         const stopIndex = 2;
+
+         items.some((item, index) => {
+           console.log(index, item); // Runs for indices 0, 1, and 2
+           return index === stopIndex; 
+         });
        */
       k=0;
-      targetArr.forEach((array_all, k) => {
+      const stopK = 9;
+      targetArr.some((array_all, k) => {
         const vswr_p= document.createElement("p");
         explanationArea.value+= `---vswr=${array_all.vswr}---\n`;
          
         vswr_p.textContent= `---vswr=${array_all.vswr}---`;
         vswr_p.style.lineHeight=".1rem";
-        // result_vswr3.appendChild(vswr_p);
         array_all.z01.forEach((num,n)=> {
           let text_p= `Z01[${n+1}]= ${array_all.z01[n].toFixed(1)} L01[${n+1}]= ${array_all.l01[n].toFixed(1)} `;
             text_p+= ` ZO2[${n+1}]= ${array_all.z02[n].toFixed(1)} L02[${n+1}]= ${array_all.l02[n].toFixed(1)}`;
@@ -244,9 +245,9 @@ document.addEventListener("readystatechange", () => {
           const line_p= document.createElement("p");
           line_p.textContent= text_p;
           line_p.style.lineHeight= ".01"; // Adjust the line height as needed
-          // result_vswr3.appendChild(line_p);
         });
-      });
+        return k === stopK; // Stop the loop when k reaches stopK
+      });// end of some
      
       const spaces = " ".repeat(3);
       result_vswr.textContent+= `\n`;
