@@ -25,22 +25,11 @@ document.addEventListener("readystatechange", () => {
     let inputIds_f= [];
     let inputIds_ZL2_real= [];
     let inputIds_ZL2_imag= [];
-    // let ZL2_real_array= [];
-    // let ZL2_imag_array= [];
-    // let Zin_r_array= [];
-    // let Zin_x_array= [];
-    // let vswr_array= [];
-    // let db_array= [];
-    // let g_array= [];
+ 
     
     const result_vswr=  document.getElementById("result_vswr");
-    result_vswr.textContent=`result for best solution from within k searches \n`;
-    const result_vswr1= document.getElementById("result_vswr1");
-    result_vswr1.textContent=`result_vswr1: people VSWR  from min to max\n`;
-    const result_vswr2= document.getElementById("result_vswr2");
-    result_vswr2.textContent=`result_vswr2 \n`;
-    const result_vswr3= document.getElementById("result_vswr3");
-    result_vswr3.textContent=`result_vswr3\n`;
+    result_vswr.textContent=`collection of results for best solutions from within 17 searches each \n`;
+    
     const form= document.getElementById("vswrForm");
     const generatorR= document.getElementById("generatorR");
     
@@ -48,6 +37,9 @@ document.addEventListener("readystatechange", () => {
     const frequency_n_input= document.getElementById("frequency_n");
     frequency_n_input.addEventListener("input", ()=>{
       tbody.replaceChildren(""); 
+      result_vswr.textContent=`result for best solution from within 17 searches \n`;
+      explanationArea.value = `time: ${timenow()}\n`;
+
     });
     
     let f_n=1; // number of f
@@ -93,36 +85,6 @@ document.addEventListener("readystatechange", () => {
         Lmin, Lmax
       );
     });
-
-    // const result_vswr=  document.getElementById("result_vswr");
-    // result_vswr.textContent=`result for best solution from within k searches \n`;
-    // const result_vswr1= document.getElementById("result_vswr1");
-    // result_vswr1.textContent=`result_vswr1: people VSWR  from min to max\n`;
-    // const result_vswr2= document.getElementById("result_vswr2");
-    // result_vswr2.textContent=`result_vswr2 \n`;
-    // const result_vswr3= document.getElementById("result_vswr3");
-    // result_vswr3.textContent=`result_vswr3\n`;
-
-    const people= [
-        {vswr: 3.,  line1: { impedance: 40, length: 80}, line2: {impedance:48, length: 70}},
-        {vswr: 2.5, line1: { impedance: 45, length: 70}, line2: { impedance: 45,    length: 70}},
-        {vswr: 2.8, line1: { impedance: 42, length: 68}, line2: { impedance: 57,    length: 74}},
-        {vswr: 3.5, line1: { impedance: 47, length: 75}, line2: { impedance: 62,    length: 70}},
-    ];
-    
-    
-    let targetArray = []; 
-// Find the object with the minimum numeric property (e.g., 'vswr)
-    const minObject = people.reduce((min, obj) => 
-      obj.vswr< min.vswr ? obj : min
-);   
-// Push object with min 'vswr' into the target array
-    targetArray.push(minObject);
-    result_vswr2.textContent+= JSON.stringify(targetArray[0], null, 2);
-
-// insert new object in order for value of 'vswr'
-    const array_length= people.length ;
-    targetArray.length= 0; // Clear the target array
     
     function insertItem(arr, newItem, vswr) {
       let low = 0;
@@ -139,15 +101,7 @@ document.addEventListener("readystatechange", () => {
       arr.splice(low, 0, newItem);
       return arr;
     }
-    targetArray.push(people[0]);
-    for (let i=1; i<array_length; i++) {
-      insertItem(targetArray, people[i], "vswr");
-    }
-    result_vswr3.textContent+= JSON.stringify(targetArray, null, 2);
-    
-    // const statusIndicator= document.getElementById("statusIndicator");
-    // statusIndicator.replaceChildren("ready");
-    // let currentState= "ready";
+   
     
     function formatNumber(value) {
       return Number.isFinite(value) ? 
@@ -168,7 +122,7 @@ document.addEventListener("readystatechange", () => {
       const { id_rmin, id_rmax, id_lmin, id_lmax}= Ids.ids_stp_n(stp_n);
       
       let k=30;
-      explanationArea.value= `k= ${k0}\n`;
+      explanationArea.value= `${k0} sets of lines \n`;
       let all=[];
       let targetArr = [];
       
@@ -275,25 +229,22 @@ document.addEventListener("readystatechange", () => {
           object1.l02=length2_array;
           all.push(object1);
        */
-      result_vswr3.textContent="";
       k=0;
       targetArr.forEach((array_all, k) => {
         const vswr_p= document.createElement("p");
         explanationArea.value+= `---vswr=${array_all.vswr}---\n`;
-        // let lines= `R[1,${j+1}]=${format1.fzin_r(Z01)} Ω, L[1,${j+1}]=${length1.toFixed(2)} mm,`;
-        //   lines+=   ` R[2,${j+1}]=${format1.fzin_r(Z02)} Ω, L[2,${j+1}]=${length2.toFixed(2)} mm`;
-        //   explanationArea.value+= `${lines}\n`; 
+         
         vswr_p.textContent= `---vswr=${array_all.vswr}---`;
         vswr_p.style.lineHeight=".1rem";
-        result_vswr3.appendChild(vswr_p);
+        // result_vswr3.appendChild(vswr_p);
         array_all.z01.forEach((num,n)=> {
-          let text_p= `Z01[${n}]= ${array_all.z01[n].toFixed(1)} L01[${n}]= ${array_all.l01[n].toFixed(1)} `;
-            text_p+= ` ZO2[${n}]= ${array_all.z02[n].toFixed(1)} L02[${n}]= ${array_all.l02[n].toFixed(1)}`;
+          let text_p= `Z01[${n+1}]= ${array_all.z01[n].toFixed(1)} L01[${n+1}]= ${array_all.l01[n].toFixed(1)} `;
+            text_p+= ` ZO2[${n+1}]= ${array_all.z02[n].toFixed(1)} L02[${n+1}]= ${array_all.l02[n].toFixed(1)}`;
           explanationArea.value+= `${text_p}\n`; 
           const line_p= document.createElement("p");
           line_p.textContent= text_p;
           line_p.style.lineHeight= ".01"; // Adjust the line height as needed
-          result_vswr3.appendChild(line_p);
+          // result_vswr3.appendChild(line_p);
         });
       });
      
@@ -306,8 +257,8 @@ document.addEventListener("readystatechange", () => {
       // result_vswr.textContent+= `vswr=${all[0].vswr}\n`;
       targets0.push(targetArr[0]);
       targetArr[0].z01.forEach((num,n)=> {
-        let text_p= `Z01[${n}]= ${num.toFixed(1)} L01[${n}]= ${targetArr[0].l01[n].toFixed(1)} `;
-        text_p+= ` ZO2[${n}]= ${targetArr[0].z02[n].toFixed(1)} L02[${n}]= ${targetArr[0].l02[n].toFixed(1)}`;
+        let text_p= `Z01[${n+1}]= ${num.toFixed(1)} L01[${n+1}]= ${targetArr[0].l01[n].toFixed(1)} `;
+        text_p+= ` ZO2[${n+1}]= ${targetArr[0].z02[n].toFixed(1)} L02[${n+1}]= ${targetArr[0].l02[n].toFixed(1)}`;
         const line_p= document.createElement("p");
         line_p.textContent= text_p;
         line_p.style.lineHeight= ".01"; // Adjust the line height as needed
@@ -315,10 +266,6 @@ document.addEventListener("readystatechange", () => {
         result_vswr.textContent+=`\n`;
       });
       
-            //  result_vswr.textContent= JSON.stringify(all, null, 2); 
-
-              // `f= ${frequency}MHz${spaces}vswr: ${vswr_array[i]}${spaces}`+ 
-              //   ` db= ${db_array[i]}dB${spaces}(|Γ| = ${g_array[i]})\n`;
 
     } //end of updateResult
     

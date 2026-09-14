@@ -1,4 +1,5 @@
-form
+https://perlov3301.github.io/fn_lr_delta260726/
+
 git remote add origin https://github.com/perlov3301/fn_lr_delta.git
 to
 echo "# delta260824" >> README.md
