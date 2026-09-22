@@ -1,15 +1,6 @@
-https://perlov3301.github.io/fn_lr_delta260726/
-
-git remote add origin https://github.com/perlov3301/fn_lr_delta.git
-to
-echo "# delta260824" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/perlov3301/delta260824.git
+git remote add origin https://github.com/perlov3301/fn_lr_delta.git
 git push -u origin main
-//origin  https://github.com/perlov3301/delta260824.git (push)
 
 (Z_L = 75 - j25), (Z_0 = 50) vswr=1.77_
 zl=9.33-39.2i z0=50 vswr =  8.7250
@@ -134,45 +125,9 @@ console.log(lowestPriceConfig);
 https://www.facebook.com/stories/1796471293749776/UzpfSVNDOjE3ODQ3OTk0MTkyMDU2ODk=/?view_single=1
 drkirkby@kirkbymicrowave.co.uk
 
-function insertInOrder(arr, newItem, vswr) {
-  let low = 0;
-  let high = arr.length;
-  let mid = 0;
-  // binary search of index
-  while (low< high) {
-    mid = Math.floor((low+high)/2);
-    if (arr[mid][vswr]<newItem[vswr]) {
-      low= mid+1;
-    } else {
-      high=mid;
-    }
-  }// end of while
-  // insert the item at the found index
-  // splice(start, number of elements to remove, items to inject)
-  
-  arr.splice(low, 0, newItem);
-  // option of delete one item =last item if length>10
-  // length_arr= arr.length;
-  //arr.splice((length_arr-1),1);
-  // or arr.pop()
-  return arr;
+link to page:
+https://perlov3301.github.io/fn_lr_delta260726/
 
-}// end of function
-or add object with min vswr into targe array
-const sourceArray = [
-  { id: 1, score: 45 },
-  { id: 2, score: 12 },
-  { id: 3, score: 78 }
-];
-const targetArray = [];
-
-// Find the object with the minimum numeric property (e.g., 'score')
-const minObject = sourceArray.reduce((min, obj) => 
-  obj.score < min.score ? obj : min
-);
-
-// Push that object into the target array
-targetArray.push(minObject);
-
-console.log(targetArray); 
-// [{ id: 2, score: 12 }]
+yt-dlp --download-sections "*0:00:37-0:00:44" --force-keyframes-at-cuts -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --merge-output-format mp4 "YOUR_VIDEO_URL"
+git remote -v
+git config --get remote.origin.url
