@@ -20,7 +20,23 @@ document.addEventListener("readystatechange", () => {
     });
     const vf=1; // Eeff =1 
     let targets0= [];
-    const k0= 710;
+    // number of cycles of random searches per click; taken from the page input
+    const cycles_input= document.getElementById("search_cycles");
+    const k0_default= 710;
+    const k0_max= 100000;
+    let k0= k0_default;
+    function readCycles() {
+      const v= parseInt(cycles_input.value, 10);
+      if (!Number.isInteger(v) || v<1 || v>k0_max) {
+        throw new Error(`number of cycles must be a whole number from 1 to ${k0_max}.`);
+      }
+      k0= v;
+      return k0;
+    }
+    cycles_input.addEventListener("input", ()=> {
+      const v= parseInt(cycles_input.value, 10);
+      if (Number.isInteger(v) && v>=1 && v<=k0_max) { k0= v; }
+    });
     
     let inputIds_f= [];
     let inputIds_ZL2_real= [];
@@ -117,6 +133,12 @@ document.addEventListener("readystatechange", () => {
     function updateResult() 
     {
       let vconsole=-1;
+      try {
+        readCycles();
+      } catch (error) {
+        explanationArea.value= error.message;
+        return;
+      }
       const Z0=  parseFloat(generatorR.value);
       console.log("updateResult; Z0:", Z0, " f_n:", f_n);
       let frequency_array= [];
@@ -153,7 +175,7 @@ document.addEventListener("readystatechange", () => {
         if (vconsole<1) {
           console.log("updateResult; k=", k, " of ", k0," vconsole=", vconsole);
         }
-        if (vconsole>708) {
+        if (vconsole>k0-2) { // last cycle only
           console.log("updateResult; k=", k, " of ", k0," vconsole=", vconsole);
 
         }
@@ -291,4 +313,3 @@ document.addEventListener("readystatechange", () => {
     });
 
 });
-

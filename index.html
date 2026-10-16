@@ -106,12 +106,14 @@
             <div class="six columns inline_inputs" >
               <label for="generator" style="font-weight: bold;">generator Impedance (Ω):</label>
               <input type="number" 
+                value="50"
                 id="generatorR" 
                 step="any" required>
             </div>
             <div class="six columns inline_inputs">
               <label for="frequency_n" style="font-weight: bold;">number of frequencies</label>
               <input type="number" 
+                value="2"
                 min="1" 
                 id="frequency_n" 
                 step="1" required >
@@ -142,6 +144,7 @@
                 <label for="stp_n_input" style="font-weight:bold;">
                     number of sections</label>
                 <input type="number" 
+                    value="1"
                     min="1" 
                     id="stp_n_input"
                     step="1" required >
@@ -173,6 +176,14 @@
             <br>
             <div class="row">
               <div class="six columns inline_inputs">
+                <label for="search_cycles" style="font-weight:bold;">
+                    number of cycles of random searches</label>
+                <input type="number" min="1" max="100000" step="1"
+                    value="710" id="search_cycles" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="six columns inline_inputs">
                 <label for="recalculate">each click defines new sets of lines</label>
                 <button class="button-primary" id="recalculate"
                   style="margin-top: .1rem;margin-left: -5px;"
@@ -197,18 +208,7 @@
           <legend>results </legend>
           <!-- <legend>results 0</legend> -->
           <div id="result_vswr"></div>
-<!-- 
-          
-          
-          <legend>results 1</legend>
-          <div id="result_vswr1"></div>
-          
-          <legend>results 2</legend>
-          <div id="result_vswr2"></div>
 
-          <legend>results 3</legend>
-          <div id="result_vswr3"></div> -->
-          
         </fieldset>
         
         <br>
@@ -243,5 +243,3 @@
     <script type="module" src="parallel_zin.js"></script> -->
 </body>
 </html>
- 
-            

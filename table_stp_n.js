@@ -18,13 +18,13 @@ class table_stp_n {
             rowHTML+=`
               <td>${j}</td>
               <td><input type="number" onwheel="this.blur()"
-                id="${base_rmin}${i}${j}" step="any" required> </td>
+                id="${base_rmin}${i}${j}" value="20.0" step="any" required> </td>
+              <td><input type="number"  onwheel="this.blur()"
+                id="${base_rmax}${i}${j}" value="100.0" step="any" required> </td>
               <td><input type="number" onwheel="this.blur()"
-                id="${base_rmax}${i}${j}" step="any" required> </td>
+                id="${base_lmin}${i}${j}" value="40.0" step="any" required> </td>
               <td><input type="number" onwheel="this.blur()"
-                id="${base_lmin}${i}${j}" step="any" required> </td>
-              <td><input type="number" onwheel="this.blur()"
-                id="${base_lmax}${i}${j}" step="any" required> </td>
+                id="${base_lmax}${i}${j}" value="80.0" step="any" required> </td>
             </tr>
             `;
           }

@@ -1,6 +1,4 @@
-git branch -M main
-git remote add origin https://github.com/perlov3301/fn_lr_delta.git
-git push -u origin main
+
 
 (Z_L = 75 - j25), (Z_0 = 50) vswr=1.77_
 zl=9.33-39.2i z0=50 vswr =  8.7250
@@ -23,32 +21,6 @@ Z₀ = 100 Ω, Zᴸ = 40 + j70 Ω, line length = 0.3λ → VSWR = 3.86
  v*0.995   -20      399
  v*0.998   -24      999
 
-zin
-zin2 ro50l36=100-j0
-ro=100 l=52.8626 zin1=j200 zin_parallel=80+j40 vswr=2.16 db=-.63 0.368
-ro=100 l=37.5 zin1 = j100 zin_parallel=50+j50 vswr=2.62 db=-0.97 g=0.447
-// 1. Your array of input IDs
-const inputIds = ['input1', 'input2', 'input3'];
-
-// 2. Map through IDs, get their values, and convert them to numbers
-const numbersArray = inputIds.map(id => {
-  const inputElement = document.getElementById(id);
-  
-  // Use Number() to convert the string value into a number
-  return inputElement ? Number(inputElement.value) : 0; 
-});
-
-console.log(numbersArray); // Output: [10, 25, 42]
-   
-if i am confident that all IDs exist on the page:
-const numbersArray = inputIds.map(id => 
-    Number(document.getElementById(id)?.value || 0));
-input attributes: accept,alpha, alt, autocapitalize, autocomplete,
-  capture, checked, colorspace,dirname, disabled, form, formaction,
-  formenctype, formmethod, formnovalidate, formtarget, height, list,
-  max, maxlength, min, minlength, multiple, name, pattern, placeholder,
-  popovertarget, popovertargetaction, readonly, required, size, src,
-  step, switch, type, value, width.
 Ethan Bortnick - Piano Prodigy 
 Marie Salomea Sklodowska shared a deeply collaborative and devoted 
 relationship with Pierre Curie, both professionally and personally. 
@@ -70,31 +42,10 @@ git add README.md
 git commit -m "first commit"
 git branch -M main
 git remote set-url origin
- https://github.com/perlov3301/fn_lr_delta260726.git
-
 git push -u origin main
-https://github.com/perlov3301/fn_lr_delta260726.git
+https://github.com/perlov3301/delta260824.git
 
-Jaguar3698
-function costFunction(steps, freqPassSet, freqStopSet, RLpassTarget, RLstopTarget) {
-  let costPass = 0, costStop = 0;
 
-  for (const f of freqPassSet) {
-    const RL = returnLossDb(steps, f);
-    const deficit = Math.max(0, RLpassTarget - RL);   // penalize under-matching only
-    costPass += deficit * deficit;
-  }
-  costPass /= freqPassSet.length;
-
-  for (const f of freqStopSet) {
-    const RL = returnLossDb(steps, f);
-    const deficit = Math.max(0, RL - RLstopTarget);   // penalize insufficient rejection only
-    costStop += deficit * deficit;
-  }
-  costStop /= freqStopSet.length;
-
-  return costPass + costStop;   // equal weighting by default; see below
-}
 f= 1000MHz   vswr: 1.97    db= -0.492dB   (|Γ| = 0.327)
 f= 1160MHz   vswr: 1.298    db= -0.074dB   (|Γ| = 0.13)
 f= 1350MHz   vswr: 2.48    db= -0.863dB   (|Γ| = 0.424)
@@ -125,8 +76,7 @@ console.log(lowestPriceConfig);
 https://www.facebook.com/stories/1796471293749776/UzpfSVNDOjE3ODQ3OTk0MTkyMDU2ODk=/?view_single=1
 drkirkby@kirkbymicrowave.co.uk
 
-link to page:
-https://perlov3301.github.io/fn_lr_delta260726/
+
 
 yt-dlp --download-sections "*0:00:37-0:00:44" --force-keyframes-at-cuts -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --merge-output-format mp4 "YOUR_VIDEO_URL"
 git remote -v
