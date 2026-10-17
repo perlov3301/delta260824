@@ -204,12 +204,23 @@
             
         </form>
         <br>
-        <fieldset>
-          <legend>results </legend>
-          <!-- <legend>results 0</legend> -->
-          <div id="result_vswr"></div>
-
-        </fieldset>
+        <div class="row">
+           
+          <div class="ten columns inline_inputs">
+            <fieldset>
+              <legend>results </legend>
+              <!-- <legend>results 0</legend> -->
+              <div id="result_vswr"></div>
+    
+            </fieldset>
+          </div>
+          <div class="two columns inline_inputs" style="flex-direction: column; content: c;">
+            <button id="clear results" 
+              style="margin-top: .1rem; margin-left: -1rem;"
+              type="button">clear results
+          </div>
+        </div>
+        
         
         <br>
         <div class="row">
@@ -227,14 +238,6 @@
             </div>
         </div>
 
-        <!-- <div id="result_zin" class="inline_inputs">
-          <label for="explanation" style="font-weight: bold;">lines parameters or error</label>
-          <textarea id="explanation" 
-             rows="7"
-             cols="71"
-             minheight="10rem"
-             readonly></textarea>
-        </div> -->
     </div>
     <script type="module" src="parallel_vswr.js"></script>
     <script type="module" src="timenow.js"></script>
